@@ -2,43 +2,55 @@
     {
         "id": 1,
         "name": "H4",
-        "img1": "https://shorturl.at/fmrtJ",
-        "img2": "https://shorturl.at/pzPS8",
-        "img3": "https://shorturl.at/lrxAH"
+        "img1": "../assets/blue1.png",
+        "img2": "../assets/blue2.png",
+        "img3": "../assets/blue3.png",
+        "img4": "../assets/parking.png",
+        "img5": "../assets/apartment_backyard.png"
     },
     {
         "id": 2,
         "name": "H5",
-        "img1": "https://shorturl.at/acmvV",
-        "img2": "https://shorturl.at/hHTY0",
-        "img3": "https://shorturl.at/inxD2"
+        "img1": "../assets/red1.png",
+        "img2": "../assets/red2.png",
+        "img3": "../assets/red3.png",
+        "img4": "../assets/parking.png",
+        "img5": "../assets/apartment_backyard.png"
     },
     {
         "id": 3,
         "name": "Vastu",
-        "img1": "https://shorturl.at/goR09",
-        "img2": "https://shorturl.at/gklNR",
-        "img3": "https://shorturl.at/qwFGK"
+        "img1": "../assets/yellow1.png",
+        "img2": "../assets/yellow2.png",
+        "img3": "../assets/yellow3.png",
+        "img4": "../assets/parking.png",
+        "img5": "../assets/apartment_backyard.png"
     },
     {
         "id": 4,
-        "name": "H4",
-        "img1": "https://shorturl.at/fmrtJ",
-        "img2": "https://shorturl.at/pzPS8",
-        "img3": "https://shorturl.at/lrxAH"
+        "name": "H1",
+        "img1": "../assets/green1.png",
+        "img2": "../assets/green2.png",
+        "img3": "../assets/green3.png",
+        "img4": "../assets/parking.png",
+        "img5": "../assets/apartment_backyard.png"
     },
     {
         "id": 5,
-        "name": "H5",
-        "img1": "https://shorturl.at/acmvV",
-        "img2": "https://shorturl.at/hHTY0",
-        "img3": "https://shorturl.at/inxD2"
+        "name": "H2",
+        "img1": "../assets/white1.png",
+        "img2": "../assets/white2.png",
+        "img3": "../assets/white3.png",
+        "img4": "../assets/parking.png",
+        "img5": "../assets/apartment_backyard.png"
     },
     {
         "id": 6,
-        "name": "Vastu",
-        "img1": "https://shorturl.at/goR09",
-        "img2": "https://shorturl.at/gklNR",
-        "img3": "https://shorturl.at/qwFGK"
+        "name": "Cambridge",
+        "img1": "../assets/purple1.png",
+        "img2": "../assets/purple2.png",
+        "img3": "../assets/purple3.png",
+        "img4": "../assets/parking.png",
+        "img5": "../assets/apartment_backyard.png"
     }
 ]

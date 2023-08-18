@@ -1,35 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
-export function EditComponent() {
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export function AddComponents() {
   const {
     setIsAdmin,
     setIsLoggedIn,
     listOfUsers,
     listOfProperty,
-    setListOfUsers,
+    setListOfProperty,
     setIsLoginFormHidden,
+    setIsAddUserHidden,
 
     userInfo,
     setUserInfo,
     gender,
     setGender,
   } = useOutletContext();
-  const [isEmailSMS, setIsEmailSMS] = useState(true);
-  const [adminCanAccessSMS, setAdminCanAccessSMS] = useState(false);
-  const [successSMS, setSuccessSMS] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsAdmin(false);
     setIsLoginFormHidden(true);
     setIsLoggedIn(true);
-
+    setIsAddUserHidden(true);
 
     (async()=>{
       const isEmailExist = await axios.get(
-        "http://localhost:8080/housing/login/admin",
+        `${process.env.REACT_APP_SERVER_URL}/housing/login/admin`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -37,7 +40,8 @@ export function EditComponent() {
           },
         }
       );
-      if(isEmailExist.data === "Invalid token" || isEmailExist.data === "You are not allowed only for admins"){
+      if(isEmailExist.data === "Invalid token" || 
+        isEmailExist.data === "You are not allowed only for admins"){
         navigate("/housing/login");
       }
       console.log("isEmailExist", isEmailExist.data);
@@ -58,12 +62,23 @@ export function EditComponent() {
       };
     });
   }
-  async function updateUser() {
-    let newUpdatedUserData = { ...userInfo, gender: gender };
 
-    const isEmailExist = await axios.patch(
-      `http://localhost:8080/housing/login/admin/updateUser/${userInfo.id}`,
-      newUpdatedUserData,
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let imageUrl = `https://randomuser.me/api/portraits/men/${Math.floor(
+      Math.random() * 99
+    )}.jpg`;
+
+    let newUser = {
+      ...userInfo,
+      id: uuidv4().slice(0, 4),
+      gender: gender,
+      image: imageUrl,
+    };
+
+    const isEmailExist = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/housing/login/admin/addNewUser`,
+      newUser,
       {
         headers: {
           "Content-Type": "application/json",
@@ -71,40 +86,38 @@ export function EditComponent() {
         },
       }
     );
-
-    let newUpdatedData = [...listOfUsers];
-
+      console.log(isEmailExist.data)
     if (isEmailExist.data === "Invalid token") {
-      setAdminCanAccessSMS(true);
-      return;
+      navigate("/housing/login");
+      toast.error('Invalid token');
+    }
+    if(isEmailExist.data === "You are not allowed only for admins"){
+      navigate("/housing/login");
+      toast.error('You are not allowed only for admins');
     }
     if (isEmailExist.data === "This email already registered!") {
-      setIsEmailSMS(false);
       document.getElementById("email").style.borderBlockColor = "red";
-      return;
+      toast.error('This email already registered!');
     } else {
-      console.log("newUser: ", newUpdatedUserData);
-      setListOfUsers(newUpdatedData);
-      setIsEmailSMS(true);
+      console.log("newUser: ", newUser);
+      listOfUsers.push(newUser);
       document.getElementById("email").style.borderBlockColor = "";
+      clearForm();
     }
 
-    for (let each of newUpdatedData) {
-      if (each.id === userInfo.id) {
-        each.fName = userInfo.fName;
-        each.lName = userInfo.lName;
-        each.age = userInfo.age;
-        each.address = userInfo.address;
-        each.phone = userInfo.phone;
-        each.email = userInfo.email;
-        each.gender = gender;
-        each.buildingName = userInfo.buildingName;
+    const bld = newUser.buildingName;
+    let property = [...listOfProperty];
+    for (let each of property) {
+      if (each.buildingName === bld) {
+        each.vacancies = each.vacancies - 1;
+        break;
       }
     }
-    clearForm();
-    setSuccessSMS(false)
-    setTimeout(()=>{setSuccessSMS(true)}, 1000)
+
+    setListOfProperty(listOfProperty);
+
   }
+
   function clearForm(){
     setUserInfo({
         fName:"",
@@ -118,20 +131,16 @@ export function EditComponent() {
         password:""
     })
   }
-  
 
   return (
     <center>
-      <h1>Edit user</h1>
-      <h1 style={{color:"green"}} hidden={successSMS} >user Added successfully </h1>
-      <form id="ADD_EDIT">
-        <div>
-          <h2 hidden={!adminCanAccessSMS} style={{ color: "red" }}>
-            Only Admin Can Add users
-          </h2>
-          <div hidden={adminCanAccessSMS}>
+      <h1>Add newUser</h1>
+      <form id="ADD_EDIT" onSubmit={handleSubmit}>
+        
+          <div>
             First Name: <br />
             <input
+              required
               type="text"
               name="fName"
               value={userInfo.fName}
@@ -141,6 +150,7 @@ export function EditComponent() {
             <br />
             Last Name: <br />
             <input
+              required
               type="text"
               name="lName"
               value={userInfo.lName}
@@ -150,6 +160,7 @@ export function EditComponent() {
             <br />
             Age: <br />
             <input
+              required
               type="number"
               name="age"
               value={userInfo.age}
@@ -159,6 +170,7 @@ export function EditComponent() {
             <br />
             Address: <br />
             <input
+              required
               type="text"
               name="address"
               value={userInfo.address}
@@ -166,29 +178,36 @@ export function EditComponent() {
               onChange={handleChanges}
             />
             <br />
+            Phone Number: <br />
+            <input
+              required
+              type="number"
+              name="phone"
+              value={userInfo.phone}
+              placeholder="Phone Number"
+              onChange={handleChanges}
+            />
           </div>
-        </div>
 
-        <div hidden={adminCanAccessSMS}>
-          Phone Number: <br />
-          <input
-            type="number"
-            name="phone"
-            value={userInfo.phone}
-            placeholder="Phone Number"
-            onChange={handleChanges}
-          />
-          <br />
-          <div id="emailSMS" hidden={isEmailSMS} style={{ color: "red" }}>
-            This email already exist
-          </div>
+        <div>
           Email Address: <br />
           <input
+            required
             id="email"
             type="email"
             name="email"
             value={userInfo.email}
             placeholder="Email"
+            onChange={handleChanges}
+          />
+          <br />
+          Password: <br />
+          <input
+            required
+            type="password"
+            name="password"
+            value={userInfo.password}
+            placeholder="password"
             onChange={handleChanges}
           />
           <br />
@@ -209,8 +228,15 @@ export function EditComponent() {
             checked={gender === "female"}
             onChange={handleGender}
           />
-          <br />
-          List of property for Rent: <br />
+          <br /> <br />
+          Role: <br />
+          <select name="role" value={userInfo.role} onChange={handleChanges}>
+            <option value="role">Role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+          <br /> <br />
+          Property for Rent: <br />
           <select
             name="buildingName"
             value={userInfo.buildingName}
@@ -228,17 +254,15 @@ export function EditComponent() {
             ))}
           </select>
           <br />
+          <button
+            className="btn btn-secondary"
+            style={{ fontSize: "20px", marginTop: "10px" }}
+            onSubmit={handleSubmit}
+          >
+            Submit
+          </button>
         </div>
       </form>
-      <div>
-        <button
-          className="btn btn-secondary"
-          style={{ fontSize: "20px", marginTop: "10px" }}
-          onClick={updateUser}
-        >
-          update
-        </button>
-      </div>
     </center>
   );
 }

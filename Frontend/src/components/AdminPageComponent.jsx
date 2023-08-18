@@ -6,6 +6,9 @@ import {
   useOutletContext,
 } from "react-router-dom";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export function AdminComponent() {
   
 const [searchName, setSearchName] = useState("");
@@ -35,14 +38,14 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
     setIsAdmin(true);
     setIsLoginFormHidden(true);
     setIsAddUserHidden(false);
-    axios.get("http://localhost:8080/housing/emails").then((res) => {
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/housing/emails`).then((res) => {
       setRequestedEmails(res.data);
     });
 
 
     (async()=>{
       const isEmailExist = await axios.get(
-        "http://localhost:8080/housing/login/admin",
+        `${process.env.REACT_APP_SERVER_URL}/housing/login/admin`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -66,14 +69,17 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
   }
 
   function deleteUser(id, buildingName) {
-    axios.delete(`http://localhost:8080/housing/login/admin/deleteUser/${id}`, {
+    axios.delete(`${process.env.REACT_APP_SERVER_URL}/housing/login/admin/deleteUser/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
+      
     });
     const existingUsers = listOfUsers.filter((each) => each.id !== id);
     setListOfUsers(existingUsers);
+    
+    toast.success('User Deleted');
 
     // FIXME: the update must work without using this for loop its is already updated in the backend!
     let newBuilding = [...listOfProperty];

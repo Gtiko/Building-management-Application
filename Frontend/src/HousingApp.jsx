@@ -1,16 +1,23 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LoginPage } from "./Frontend/routers/LoginPage";
-import { UserPage } from "./Frontend/routers/UserPage";
-import { AdminPage } from "./Frontend/routers/AdminPage";
-import { AddUserPage } from "./Frontend/routers/AddUserPage";
-import { DetailPage } from "./Frontend/routers/DetailPage";
-import { ErrorPage } from "./Frontend/routers/ErrorPage";
-import { DashBoardLayOuts } from "./Frontend/layouts/LayOuts";
-import { EditUserPage } from "./Frontend/routers/EditPage";
-import { Requesters } from "./Frontend/routers/visitRequesters";
-import { HousingDashBoard } from "./Frontend/routers/DashBoardUseReducer";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { LoginPage } from "./routers/LoginPage";
+import { UserPage } from "./routers/UserPage";
+import { AdminPage } from "./routers/AdminPage";
+import { AddUserPage } from "./routers/AddUserPage";
+import { DetailPage } from "./routers/DetailPage";
+import { ErrorPage } from "./routers/ErrorPage";
+import { DashBoardLayOuts } from "./layouts/LayOuts";
+import { EditUserPage } from "./routers/EditPage";
+import { Requesters } from "./routers/visitRequesters";
+import { HousingDashBoard } from "./routers/DashBoardUseReducer";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/housing" />,
+  },
   {
     path: "/housing",
     element: <DashBoardLayOuts />,
@@ -59,6 +66,7 @@ export default function HousingApp() {
   return (
     <div>
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }

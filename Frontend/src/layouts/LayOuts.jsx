@@ -54,13 +54,13 @@ export function DashBoardLayOuts() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/housing/login/admin/allUsers")
+      .get(`${process.env.REACT_APP_SERVER_URL}/housing/login/admin/allUsers`)
       .then((res) => {
         setListOfUsers(res.data);
         setReservedData(res.data);
       });
     axios
-      .get("http://localhost:8080/housing/login/admin/allProperty")
+      .get(`${process.env.REACT_APP_SERVER_URL}/housing/login/admin/allProperty`)
       .then((res) => {
         setListOfProperty(res.data);
       });
@@ -69,7 +69,11 @@ export function DashBoardLayOuts() {
   return (
     <>
       <div id="home">
-        <h2> Housing Dashboard</h2>
+       <Link
+       onClick={home}
+       >
+       <h2 style={{cursor: "pointer", color:"white"}}> Housing Dashboard</h2>
+       </Link> 
 
         <h2>
           <Link
@@ -78,19 +82,11 @@ export function DashBoardLayOuts() {
             onClick={handleAdmin}
           >
             <img
-              src="https://shorturl.at/hyJLP"
+              src="https://th.bing.com/th/id/R.547973e32d8277f97bcbd6409802788a?rik=DE7XxSoKEKauYQ&riu=http%3a%2f%2fclipart-library.com%2fnewhp%2fkissclipart-arrow-fdd79e664ecbef76.png&ehk=SYq%2bRiJ0CVxk%2bPMEGybrjw9CHBoXo0H0eEflhmLVRKM%3d&risl=&pid=ImgRaw&r=0"
               alt="back to admin"
-              width={30}
+              width={50}
             />
           </Link>
-          &nbsp;&nbsp;
-          <Link
-            to="/housing"
-            style={{ textAlign: "left", color: "white" }}
-            onClick={home}
-          >
-            Home
-          </Link>{" "}
           &nbsp;&nbsp;
           <Link
             to="/housing/login/admin/addUser"

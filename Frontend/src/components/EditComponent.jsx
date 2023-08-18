@@ -1,37 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
-export function AddComponents() {
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export function EditComponent() {
   const {
     setIsAdmin,
     setIsLoggedIn,
     listOfUsers,
     listOfProperty,
-    setListOfProperty,
+    setListOfUsers,
     setIsLoginFormHidden,
-    setIsAddUserHidden,
 
     userInfo,
     setUserInfo,
     gender,
     setGender,
   } = useOutletContext();
-  const [isEmailSMS, setIsEmailSMS] = useState(true);
-  const [adminCanAccessSMS, setAdminCanAccessSMS] = useState(false);
-  const [successSMS, setSuccessSMS] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsAdmin(false);
     setIsLoginFormHidden(true);
     setIsLoggedIn(true);
-    setIsAddUserHidden(true);
+
 
     (async()=>{
       const isEmailExist = await axios.get(
-        "http://localhost:8080/housing/login/admin",
+        `${process.env.REACT_APP_SERVER_URL}/housing/login/admin`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -39,8 +38,7 @@ export function AddComponents() {
           },
         }
       );
-      if(isEmailExist.data === "Invalid token" || 
-        isEmailExist.data === "You are not allowed only for admins"){
+      if(isEmailExist.data === "Invalid token" || isEmailExist.data === "You are not allowed only for admins"){
         navigate("/housing/login");
       }
       console.log("isEmailExist", isEmailExist.data);
@@ -61,23 +59,12 @@ export function AddComponents() {
       };
     });
   }
+  async function updateUser() {
+    let newUpdatedUserData = { ...userInfo, gender: gender };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    let imageUrl = `https://randomuser.me/api/portraits/men/${Math.floor(
-      Math.random() * 99
-    )}.jpg`;
-
-    let newUser = {
-      ...userInfo,
-      id: uuidv4().slice(0, 4),
-      gender: gender,
-      image: imageUrl,
-    };
-
-    const isEmailExist = await axios.post(
-      "http://localhost:8080/housing/login/admin/addNewUser",
-      newUser,
+    const isEmailExist = await axios.patch(
+      `${process.env.REACT_APP_SERVER_URL}/housing/login/admin/updateUser/${userInfo.id}`,
+      newUpdatedUserData,
       {
         headers: {
           "Content-Type": "application/json",
@@ -85,39 +72,38 @@ export function AddComponents() {
         },
       }
     );
-      console.log(isEmailExist.data)
+
+    let newUpdatedData = [...listOfUsers];
+
     if (isEmailExist.data === "Invalid token") {
-      setAdminCanAccessSMS(true);
-    }
-    if(isEmailExist.data === "You are not allowed only for admins"){
-      setAdminCanAccessSMS(true);
+      toast.error("Invalid token!");
+      return;
     }
     if (isEmailExist.data === "This email already registered!") {
-      setIsEmailSMS(false);
+      toast.error("Invalid token!");
       document.getElementById("email").style.borderBlockColor = "red";
+      return;
     } else {
-      console.log("newUser: ", newUser);
-      listOfUsers.push(newUser);
-      setIsEmailSMS(true);
+      setListOfUsers(newUpdatedData);
       document.getElementById("email").style.borderBlockColor = "";
+      toast.success("User Updated!")
     }
 
-    const bld = newUser.buildingName;
-    let property = [...listOfProperty];
-    for (let each of property) {
-      if (each.buildingName === bld) {
-        each.vacancies = each.vacancies - 1;
-        break;
+    for (let each of newUpdatedData) {
+      if (each.id === userInfo.id) {
+        each.fName = userInfo.fName;
+        each.lName = userInfo.lName;
+        each.age = userInfo.age;
+        each.address = userInfo.address;
+        each.phone = userInfo.phone;
+        each.email = userInfo.email;
+        each.gender = gender;
+        each.buildingName = userInfo.buildingName;
       }
     }
-    setListOfProperty(listOfProperty);
     clearForm();
-    if(!adminCanAccessSMS){
-    setSuccessSMS(false)
-    setTimeout(()=>{setSuccessSMS(true)}, 1000)
-    }
+    
   }
-
   function clearForm(){
     setUserInfo({
         fName:"",
@@ -131,20 +117,15 @@ export function AddComponents() {
         password:""
     })
   }
+  
 
   return (
     <center>
-      <h1>Add newUser</h1>
-      <h1 style={{color:"green"}} hidden={successSMS} >user Added successfully </h1>
-      <form id="ADD_EDIT" onSubmit={handleSubmit}>
-        <div>
-          <h2 hidden={!adminCanAccessSMS} style={{ color: "red" }}>
-            Only Admin Can Add users
-          </h2>
-          <div hidden={adminCanAccessSMS}>
+      <h1>Edit user</h1>
+      <form id="ADD_EDIT">
+          <div >
             First Name: <br />
             <input
-              required
               type="text"
               name="fName"
               value={userInfo.fName}
@@ -154,7 +135,6 @@ export function AddComponents() {
             <br />
             Last Name: <br />
             <input
-              required
               type="text"
               name="lName"
               value={userInfo.lName}
@@ -164,7 +144,6 @@ export function AddComponents() {
             <br />
             Age: <br />
             <input
-              required
               type="number"
               name="age"
               value={userInfo.age}
@@ -174,7 +153,6 @@ export function AddComponents() {
             <br />
             Address: <br />
             <input
-              required
               type="text"
               name="address"
               value={userInfo.address}
@@ -182,40 +160,25 @@ export function AddComponents() {
               onChange={handleChanges}
             />
             <br />
-            Phone Number: <br />
-            <input
-              required
-              type="number"
-              name="phone"
-              value={userInfo.phone}
-              placeholder="Phone Number"
-              onChange={handleChanges}
-            />
           </div>
-        </div>
 
-        <div hidden={adminCanAccessSMS}>
-          <div id="emailSMS" hidden={isEmailSMS} style={{ color: "red" }}>
-            This email already exist
-          </div>
+        <div >
+          Phone Number: <br />
+          <input
+            type="number"
+            name="phone"
+            value={userInfo.phone}
+            placeholder="Phone Number"
+            onChange={handleChanges}
+          />
+          <br />
           Email Address: <br />
           <input
-            required
             id="email"
             type="email"
             name="email"
             value={userInfo.email}
             placeholder="Email"
-            onChange={handleChanges}
-          />
-          <br />
-          Password: <br />
-          <input
-            required
-            type="password"
-            name="password"
-            value={userInfo.password}
-            placeholder="password"
             onChange={handleChanges}
           />
           <br />
@@ -236,15 +199,8 @@ export function AddComponents() {
             checked={gender === "female"}
             onChange={handleGender}
           />
-          <br /> <br />
-          Role: <br />
-          <select name="role" value={userInfo.role} onChange={handleChanges}>
-            <option value="role">Role</option>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-          </select>
-          <br /> <br />
-          Property for Rent: <br />
+          <br />
+          List of property for Rent: <br />
           <select
             name="buildingName"
             value={userInfo.buildingName}
@@ -262,15 +218,17 @@ export function AddComponents() {
             ))}
           </select>
           <br />
-          <button
-            className="btn btn-secondary"
-            style={{ fontSize: "20px", marginTop: "10px" }}
-            onSubmit={handleSubmit}
-          >
-            Submit
-          </button>
         </div>
       </form>
+      <div>
+        <button
+          className="btn btn-secondary"
+          style={{ fontSize: "20px", marginTop: "10px" }}
+          onClick={updateUser}
+        >
+          update
+        </button>
+      </div>
     </center>
   );
 }

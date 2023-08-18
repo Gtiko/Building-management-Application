@@ -13,7 +13,7 @@ export function DetailComponent() {
 
     (async()=>{
       const isEmailExist = await axios.get(
-        "http://localhost:8080/housing/login/admin",
+        `${process.env.REACT_APP_SERVER_URL}/housing/login/admin`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -43,9 +43,9 @@ export function DetailComponent() {
             <div>{each.fName} </div>
             <div>{each.lName} </div>
             <div>{each.email} </div>
-            <div>{each.buildingName} </div>
+            <div>{each.buildingName} </div> 
             <div>{each.role} </div>
-            <div>{each.password} </div>
+            {/* <div>{each.password} </div> */}
           </div>
         ))}
       </div>

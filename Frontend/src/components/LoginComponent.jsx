@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
 
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export function LoginComponent() {
   const {
     listOfUsers,
     isLoginFormHidden,
     setIsLoginFormHidden,
-    isMsgHidden,
-    setIsMsgHidden,
     setIsAddUserHidden,
   } = useOutletContext();
 
@@ -37,7 +39,7 @@ export function LoginComponent() {
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:8080/housing/login/auth", {
+        .post(`${process.env.REACT_APP_SERVER_URL}/housing/login/auth`, {
           email: loginInfo.email,
           password: loginInfo.password,
         })
@@ -45,13 +47,9 @@ export function LoginComponent() {
           localStorage.setItem("token", res.data);
 
           if (res.data === "Please check your email") {
-            console.log("email problem");
-            setIsMsgHidden(false);
-            setTimeout(()=>{setIsMsgHidden(true)}, 2000)
+            toast.error('Wrong username or password');
           } else if (res.data === "Please check your password") {
-            console.log("password problem");
-            setIsMsgHidden(false);
-            setTimeout(()=>{setIsMsgHidden(true)}, 2000)
+            toast.error('Wrong username or password');
           } else {
             const user = listOfUsers.find(
               (each) => each.email === loginInfo.email
@@ -64,12 +62,9 @@ export function LoginComponent() {
               navigate(`/housing/login/user/${user.id}`, {
                 state: { item: user, data: listOfUsers },
               });
-            } else {
-              console.log("doesn't have role... ");
-              setIsMsgHidden(false);
-            }
+            } 
           }
-          console.log("result", res.data);
+
         })
         .catch((error) => {
           console.log(error.message);
@@ -83,9 +78,6 @@ export function LoginComponent() {
     <center id="login">
       <form onSubmit={loginBtn} hidden={isLoginFormHidden}>
         <h1 style={{marginBottom:"30px"}}>Login</h1>
-        <h3 hidden={isMsgHidden} style={{ color: "red" }}>
-          wrong username or password
-        </h3>
         <input
           required
           type="email"
@@ -93,6 +85,7 @@ export function LoginComponent() {
           placeholder="email"
           value={loginInfo.email}
           onChange={handleLoginInfo}
+          style={{width:"100%"}}
 
         />
         <br />
@@ -103,12 +96,13 @@ export function LoginComponent() {
           placeholder="password"
           value={loginInfo.password}
           onChange={handleLoginInfo}
+          style={{width:"100%"}}
         />
-        <br />
+
         <button 
           onSubmit={loginBtn}
           className="btn btn-secondary"
-          style={{fontSize:"25px", marginLeft:"300px", marginTop:"30px"}}
+          style={{fontSize:"25px", width:'100%', marginBottom:"20px"}}
         >Login</button>
 
         

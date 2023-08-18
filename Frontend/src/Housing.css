@@ -1,0 +1,171 @@
+#userImages,
+#adminImages {
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+body {
+  font-family: cursive;
+  font-size: large;
+}
+
+table,
+th,
+td,
+tr {
+  border: lightskyblue 1px solid;
+}
+table {
+  border-collapse: collapse;
+  width: 95%;
+  margin-left: 30px;
+
+  box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.42);
+  padding: 10px;
+}
+
+table tr:nth-child(even) {
+  background-color: #cacbce;
+}
+
+table tr:hover {
+  background-color: #c7c8cc;
+}
+
+td {
+  text-align: center;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #142057;
+  color: white;
+}
+
+main {
+  text-align: center;
+}
+
+#deleteEdit {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 5px;
+}
+
+#AddUpdate {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 5px;
+}
+
+#ADD_EDIT {
+  width: 50%;
+  padding: 50px;
+  box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.235);
+  margin: 0 auto;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 50px;
+}
+
+
+img{
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 1px 20px 10px 5px rgba(1, 35, 255, 0.235);
+}
+
+img:hover {
+  transform: scale(1.25);
+  z-index: 1;
+}
+
+
+#home {
+  position: fixed;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 5px;
+  text-align: center;
+  background-color: #000033;
+  color: white;
+  width: 100%;
+  box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.235);
+}
+
+input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border-color: #142057;
+}
+
+
+#login {
+  width: 80%;
+  max-width: 400px;
+  padding: 50px;
+  box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.235);
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+#userDetail {
+  width: 30%;
+  padding: 50px;
+  box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.235);
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+#Detail {
+  width: 50%;
+  padding: 50px;
+  box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.235);
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+
+
+@media (max-width: 768px) {
+  #dashBoard {
+    padding: 10px;
+  }
+
+  #dashBoard img {
+    max-width: 100%;
+  }
+
+
+  #ADD_EDIT {
+    width: 80%; 
+    padding: 20px; 
+    grid-template-columns: auto; 
+  }
+  input {
+    padding: 8px; 
+  }
+}
+
+@media (max-width: 480px) {
+  input[type="email"] {
+    height: 35px;
+    font-size: 12px;
+  }
+
+  #ADD_EDIT {
+    width: 90%;
+  }
+
+  input {
+    padding: 6px;
+  }
+}
+
