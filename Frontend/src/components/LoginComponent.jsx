@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
 
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -19,6 +18,7 @@ export function LoginComponent() {
     setIsLoginFormHidden(false);
   });
 
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -37,6 +37,7 @@ export function LoginComponent() {
 
   async function loginBtn(e) {
     e.preventDefault();
+    setIsLoading(true);
     try {
       axios
         .post(`${process.env.REACT_APP_SERVER_URL}/housing/login/auth`, {
@@ -76,6 +77,14 @@ export function LoginComponent() {
   
   return (
     <center id="login">
+
+    { isLoading ? 
+    <div className="loading-indicator"  >
+          <div className="loading-spinner"></div>
+    </div>
+    : ""
+    }
+
       <form onSubmit={loginBtn} hidden={isLoginFormHidden}>
         <h1 style={{marginBottom:"30px"}}>Login</h1>
         <input

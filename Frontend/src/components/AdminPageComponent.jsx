@@ -125,7 +125,7 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
   }
 
   return (
-    <>
+  <div style={{marginBottom:'100px'}}>
       <div style={{ textAlign:"end" , marginRight:"50px",fontSize:"30px" }}>
         <Link to= "/housing/visiters">
            Requesters  
@@ -258,6 +258,6 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
           </table>
         </div>
       </center>
-    </>
+    </div>
   );
 }

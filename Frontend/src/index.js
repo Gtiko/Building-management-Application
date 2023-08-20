@@ -10,7 +10,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <>
-     <Suspense fallback={<center style={{marginTop:"10%"}} ><h1>Loading...</h1></center>}>
+     <Suspense fallback={
+     <center style={{marginTop:"10%"}} ><h1>Loading...</h1></center>
+      // <div className="loading-indicator" style={{marginTop:"10%"}}>
+      //     <div className="loading-spinner"></div>
+      // </div>
+     }>
       <HousingApp/>
     </Suspense>
   </>

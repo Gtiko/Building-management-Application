@@ -12,6 +12,7 @@ import { HousingDashBoard } from "./routers/DashBoardUseReducer";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,7 @@ export default function HousingApp() {
     <div>
       <RouterProvider router={router} />
       <ToastContainer />
+      <Footer />
     </div>
   );
 }

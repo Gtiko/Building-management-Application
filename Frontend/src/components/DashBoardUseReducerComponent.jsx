@@ -66,7 +66,10 @@ export function HousingDashBoardComponent() {
   }
 
   return (
-    <center>
+    <center style={{marginBottom:'100px'}}>
+      {appImages.length !== 0 ? 
+      
+      <div>
       {appImages.map((each, index) => (
         <div key={index} id="dashBoard">
           <h3>Sample Property for {each.name}</h3> <br />
@@ -110,7 +113,14 @@ export function HousingDashBoardComponent() {
           </div>
         </div>
       ))}
-    </center>
+
+     </div>
+      : 
+      <div className="loading-indicator" style={{marginTop:"10%"}}>
+      <div className="loading-spinner"></div>
+     </div>
+              }
+  </center>
 
   );
 }

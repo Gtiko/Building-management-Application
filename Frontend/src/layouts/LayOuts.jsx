@@ -47,6 +47,7 @@ export function DashBoardLayOuts() {
   }
 
   function home() {
+    navigate("/housing");
     setIsLoggedIn(false);
     setIsAdmin(true);
     setIsAddUserHidden(true);
@@ -60,7 +61,9 @@ export function DashBoardLayOuts() {
         setReservedData(res.data);
       });
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/housing/login/admin/allProperty`)
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/housing/login/admin/allProperty`
+      )
       .then((res) => {
         setListOfProperty(res.data);
       });
@@ -69,11 +72,11 @@ export function DashBoardLayOuts() {
   return (
     <>
       <div id="home">
-       <Link
-       onClick={home}
-       >
-       <h2 style={{cursor: "pointer", color:"white"}}> Housing Dashboard</h2>
-       </Link> 
+        <Link to="/housing" onClick={home}>
+          <h2 style={{ cursor: "pointer", color: "white" }}>
+            Housing Dashboard
+          </h2>
+        </Link>
 
         <h2>
           <Link
