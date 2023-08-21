@@ -66,7 +66,7 @@ export function HousingDashBoardComponent() {
   }
 
   return (
-    <center style={{marginBottom:'100px'}}>
+    <center style={{marginBottom:'100px', marginTop:"100px"}}>
       {appImages.length !== 0 ? 
       
       <div>

@@ -49,8 +49,10 @@ export function LoginComponent() {
 
           if (res.data === "Please check your email") {
             toast.error('Wrong username or password');
+            setIsLoading(false);
           } else if (res.data === "Please check your password") {
             toast.error('Wrong username or password');
+            setIsLoading(false);
           } else {
             const user = listOfUsers.find(
               (each) => each.email === loginInfo.email

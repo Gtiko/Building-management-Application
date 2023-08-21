@@ -125,7 +125,7 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
   }
 
   return (
-  <div style={{marginBottom:'100px'}}>
+  <div style={{marginBottom:'100px', marginTop: '100px'}}>
       <div style={{ textAlign:"end" , marginRight:"50px",fontSize:"30px" }}>
         <Link to= "/housing/visiters">
            Requesters  
@@ -149,12 +149,11 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
             search
           </button> <br /> <br />
 
-        <div  
-          style={{display:"grid", gridTemplateColumns:"auto auto",gap:"10px", marginBottom:"30px"}}>
+        <div id="listBTN">
 
           <button
           className="btn btn-secondary"
-          style={{ fontSize: "25px", marginLeft:"60px", borderColor:"white" }}
+          style={{  marginLeft:"10%", borderColor:"white" }}
             onClick={()=>{
               setShowUserTable(false);
               setShowPropertyTable(true)
@@ -163,7 +162,7 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
 
           <button
           className="btn btn-secondary"
-          style={{ fontSize: "25px", marginRight:"30px" }}          
+          style={{  width:'90%' }}          
           onClick={()=>{
               setShowUserTable(true);
               setShowPropertyTable(false)
@@ -175,11 +174,11 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
           <table hidden={showUserTable}>
             <thead>
               <tr>
-                <th>userId</th>
-                <th>user full name</th>
-                <th>photo</th>
-                <th style={{width:"200px"}}>user detail</th>
-                <th style={{width:"300px"}}>action</th>
+                <th>Id</th>
+                <th>User</th>
+                <th>Photo</th>
+                <th style={{width:"200px"}}>Detail</th>
+                <th style={{width:"300px"}}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -199,7 +198,7 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
                           showDetail(user.id);
                         }}
                         className="btn btn-secondary"
-                        style={{ fontSize: "25px", width:"100%" }}
+                        style={{ width:"100%", height:"100%" }}
                       >
                         details
                       </button>
@@ -210,17 +209,16 @@ const [showPropertyTable, setShowPropertyTable] =useState(true)
                           editUser(user);
                         }}
                         className="btn btn-warning"
-                        style={{ fontSize: "25px", width:"30%" }}
+                        style={{ width:"100%" }}
                       >
                         edit
-                      </button>{" "}
-                      &nbsp;&nbsp;
+                      </button> 
                       <button
                         onClick={() => {
                           deleteUser(user.id, user.buildingName);
                         }}
                         className="btn btn-danger"
-                        style={{ fontSize: "25px",width:"60%" }}
+                        style={{ width:"100%" }}
                       >
                         remove
                       </button>

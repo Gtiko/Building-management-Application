@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import  "../Theme.css";
 
 function useLoadingData() {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,11 +54,16 @@ function BlackBackGround() {
   }
 
   return (
-    <span style={{ color: invertColor.color }}>
-      <button id="theme" className="btn btn-secondary" onClick={changeMode}>
-        Theme
-      </button>
-    </span>
+
+        <>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <span  onClick={changeMode}>
+          <input type="checkbox" />
+        </span>
+      </>
   );
 }
 

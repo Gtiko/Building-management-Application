@@ -99,8 +99,8 @@ export function AddComponents() {
       document.getElementById("email").style.borderBlockColor = "red";
       toast.error('This email already registered!');
     } else {
-      console.log("newUser: ", newUser);
       listOfUsers.push(newUser);
+      toast.success('User Added Successfully!')
       document.getElementById("email").style.borderBlockColor = "";
       clearForm();
     }
@@ -133,12 +133,11 @@ export function AddComponents() {
   }
 
   return (
-    <center>
+    <center style={{marginBottom:'100px', marginTop: '100px'}}>
       <h1>Add newUser</h1>
       <form id="ADD_EDIT" onSubmit={handleSubmit}>
         
           <div>
-            First Name: <br />
             <input
               required
               type="text"
@@ -148,7 +147,6 @@ export function AddComponents() {
               onChange={handleChanges}
             />
             <br />
-            Last Name: <br />
             <input
               required
               type="text"
@@ -158,7 +156,6 @@ export function AddComponents() {
               onChange={handleChanges}
             />
             <br />
-            Age: <br />
             <input
               required
               type="number"
@@ -168,7 +165,6 @@ export function AddComponents() {
               onChange={handleChanges}
             />
             <br />
-            Address: <br />
             <input
               required
               type="text"
@@ -178,7 +174,6 @@ export function AddComponents() {
               onChange={handleChanges}
             />
             <br />
-            Phone Number: <br />
             <input
               required
               type="number"
@@ -190,7 +185,6 @@ export function AddComponents() {
           </div>
 
         <div>
-          Email Address: <br />
           <input
             required
             id="email"
@@ -201,7 +195,6 @@ export function AddComponents() {
             onChange={handleChanges}
           />
           <br />
-          Password: <br />
           <input
             required
             type="password"
@@ -228,15 +221,13 @@ export function AddComponents() {
             checked={gender === "female"}
             onChange={handleGender}
           />
-          <br /> <br />
-          Role: <br />
+          <br /> 
           <select name="role" value={userInfo.role} onChange={handleChanges}>
             <option value="role">Role</option>
             <option value="admin">Admin</option>
             <option value="user">User</option>
           </select>
-          <br /> <br />
-          Property for Rent: <br />
+          <br /> 
           <select
             name="buildingName"
             value={userInfo.buildingName}

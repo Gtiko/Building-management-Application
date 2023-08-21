@@ -42,7 +42,7 @@ export class VisitRequesters extends React.Component {
     const { requestedEmails } = this.state;
 
     return (
-      <center>
+      <center id="requests" style={{}}>
         <h1 style={{ marginBottom: "20px" }}> Visit Requesters </h1>
         <table>
           <thead>

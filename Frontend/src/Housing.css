@@ -8,7 +8,6 @@
 }
 
 body {
-  font-family: cursive;
   font-size: large;
 }
 
@@ -18,11 +17,13 @@ td,
 tr {
   border: lightskyblue 1px solid;
 }
+
 table {
   border-collapse: collapse;
-  width: 95%;
-  margin-left: 30px;
-
+  width: 90%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.42);
   padding: 10px;
 }
@@ -51,6 +52,13 @@ main {
   text-align: center;
 }
 
+#listBTN {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
 #deleteEdit {
   display: grid;
   grid-template-columns: auto auto;
@@ -74,8 +82,7 @@ main {
   gap: 50px;
 }
 
-
-img{
+img {
   border-radius: 5px;
   transition: transform 0.3s ease-in-out;
   box-shadow: 1px 20px 10px 5px rgba(1, 35, 255, 0.235);
@@ -85,7 +92,6 @@ img:hover {
   transform: scale(1.25);
   z-index: 1;
 }
-
 
 #home {
   position: fixed;
@@ -97,6 +103,7 @@ img:hover {
   color: white;
   width: 100%;
   box-shadow: 0 0 20px 5px rgba(1, 35, 255, 0.235);
+  padding: 20px;
 }
 
 input {
@@ -105,7 +112,6 @@ input {
   border-radius: 10px;
   border-color: #142057;
 }
-
 
 #login {
   width: 80%;
@@ -132,7 +138,9 @@ input {
   border-radius: 10px;
 }
 
-
+#requests{
+  margin-top: 100px;
+}
 
 @media (max-width: 768px) {
   #dashBoard {
@@ -140,32 +148,29 @@ input {
   }
 
   #dashBoard img {
-    max-width: 100%;
+    object-fit: cover;
+    width: 95%;
   }
-
-
   #ADD_EDIT {
-    width: 80%; 
-    padding: 20px; 
-    grid-template-columns: auto; 
-  }
-  input {
-    padding: 8px; 
-  }
-}
-
-@media (max-width: 480px) {
-  input[type="email"] {
-    height: 35px;
-    font-size: 12px;
-  }
-
-  #ADD_EDIT {
-    width: 90%;
+    width: 80%;
+    padding: 20px;
+    grid-template-columns: auto;
   }
 
   input {
     padding: 6px;
+  }
+  #Detail {
+    width: 70%;
+    margin-bottom: 100px;
+  }
+
+  #userDetail{
+    width: 70%;
+    margin-bottom: 100px;
+  }
+  #requests{
+    margin-top: 100px;
   }
 }
 
@@ -181,4 +186,41 @@ input {
 
 .footer p {
   margin: 0;
+}
+
+/* icon */
+
+#housing::after {
+  font-family: FontAwesome;
+  content: "\f015";
+  color: #7a7a7a;
+  font-size: 50px;
+}
+
+#addUser::after {
+  font-family: FontAwesome;
+  content: "\f067";
+  color: #7a7a7a;
+  font-size: 50px;
+}
+
+#logout::after {
+  font-family: FontAwesome;
+  content: "\f011";
+  color: #7a7a7a;
+  font-size: 50px;
+}
+
+#loginIcon::after {
+  font-family: FontAwesome;
+  content: "\f084";
+  color: #7a7a7a;
+  font-size: 50px;
+}
+
+#backArrow::after {
+  font-family: FontAwesome;
+  content: "\f060"; 
+  color: #7a7a7a;
+  font-size: 50px;
 }

@@ -120,11 +120,10 @@ export function EditComponent() {
   
 
   return (
-    <center>
+    <center style={{marginBottom:'100px', marginTop: '100px'}}>
       <h1>Edit user</h1>
       <form id="ADD_EDIT">
           <div >
-            First Name: <br />
             <input
               type="text"
               name="fName"
@@ -133,7 +132,6 @@ export function EditComponent() {
               onChange={handleChanges}
             />
             <br />
-            Last Name: <br />
             <input
               type="text"
               name="lName"
@@ -142,7 +140,6 @@ export function EditComponent() {
               onChange={handleChanges}
             />
             <br />
-            Age: <br />
             <input
               type="number"
               name="age"
@@ -151,7 +148,6 @@ export function EditComponent() {
               onChange={handleChanges}
             />
             <br />
-            Address: <br />
             <input
               type="text"
               name="address"
@@ -163,7 +159,6 @@ export function EditComponent() {
           </div>
 
         <div >
-          Phone Number: <br />
           <input
             type="number"
             name="phone"
@@ -172,7 +167,6 @@ export function EditComponent() {
             onChange={handleChanges}
           />
           <br />
-          Email Address: <br />
           <input
             id="email"
             type="email"
@@ -200,7 +194,6 @@ export function EditComponent() {
             onChange={handleGender}
           />
           <br />
-          List of property for Rent: <br />
           <select
             name="buildingName"
             value={userInfo.buildingName}

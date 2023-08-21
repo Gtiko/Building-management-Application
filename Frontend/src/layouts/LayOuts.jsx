@@ -73,9 +73,7 @@ export function DashBoardLayOuts() {
     <>
       <div id="home">
         <Link to="/housing" onClick={home}>
-          <h2 style={{ cursor: "pointer", color: "white" }}>
-            Housing Dashboard
-          </h2>
+          <h2 style={{ cursor: "pointer", color: "white" }} id="housing"> </h2>
         </Link>
 
         <h2>
@@ -84,39 +82,35 @@ export function DashBoardLayOuts() {
             hidden={isAdmin}
             onClick={handleAdmin}
           >
-            <img
-              src="https://th.bing.com/th/id/R.547973e32d8277f97bcbd6409802788a?rik=DE7XxSoKEKauYQ&riu=http%3a%2f%2fclipart-library.com%2fnewhp%2fkissclipart-arrow-fdd79e664ecbef76.png&ehk=SYq%2bRiJ0CVxk%2bPMEGybrjw9CHBoXo0H0eEflhmLVRKM%3d&risl=&pid=ImgRaw&r=0"
-              alt="back to admin"
-              width={50}
-            />
+            <span id="backArrow"></span>
           </Link>
-          &nbsp;&nbsp;
+          &nbsp;
           <Link
             to="/housing/login/admin/addUser"
             hidden={isAddUserHidden}
             style={{ textAlign: "left", color: "white" }}
           >
-            Add user
-          </Link>{" "}
-          &nbsp;&nbsp;
+            <span id="addUser"> </span>
+          </Link>
+          &nbsp;
           <Link
             to="/housing/login"
             hidden={isLoggedIn}
             onClick={handleLogIn}
             style={{ textAlign: "left", color: "white" }}
           >
-            Login
+            <span id="loginIcon"></span>
           </Link>
-          &nbsp;&nbsp;
+          &nbsp;
           <Link
             to="/housing/login"
             hidden={!isLoggedIn}
             onClick={handleLogOut}
             style={{ textAlign: "left", color: "white" }}
           >
-            Logout
+            <span id="logout"></span>
           </Link>
-          &nbsp;&nbsp;
+          &nbsp;
           <BlackBackGround />
         </h2>
       </div>
