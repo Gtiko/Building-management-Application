@@ -1,20 +1,35 @@
 [
     {
         "id": "101",
-        "fName": "maya",
+        "fName": "Mesiye",
         "lName": "kebede",
         "buildingName": "H4",
-        "email": "maya@gmail.com",
+        "email": "mesiye@gmail.com",
         "password": "$2b$08$dPW98.8E7mQyJ2zryyxY6OAVQ.4.3c0KaLG.ayyWK0gHOnfnOE73e",
         "role": "admin",
         "image": "https://randomuser.me/api/portraits/men/1.jpg"
     },
+    
     {
         "id": "102",
         "fName": "liya",
         "lName": "kebede",
         "buildingName": "H5",
         "email": "liya@gmail.com",
+        "password": "$2b$08$dPW98.8E7mQyJ2zryyxY6OAVQ.4.3c0KaLG.ayyWK0gHOnfnOE73e",
+        "role": "user",
+        "image": "https://randomuser.me/api/portraits/men/2.jpg",
+        "age": "13",
+        "address": "lafto",
+        "phone": "90968",
+        "gender": ""
+    },
+    {
+        "id": "109",
+        "fName": "Mesiye",
+        "lName": "Mar",
+        "buildingName": "H5",
+        "email": "mesi@gmail.com",
         "password": "$2b$08$dPW98.8E7mQyJ2zryyxY6OAVQ.4.3c0KaLG.ayyWK0gHOnfnOE73e",
         "role": "user",
         "image": "https://randomuser.me/api/portraits/men/2.jpg",
